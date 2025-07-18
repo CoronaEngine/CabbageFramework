@@ -1,21 +1,28 @@
-[submodule "Env/entt"]
-	path = Env/entt
-	url = https://github.com/skypjack/entt.git
-[submodule "Env/concurrencpp"]
-	path = Env/concurrencpp
-	url = https://github.com/David-Haim/concurrencpp.git
-[submodule "Env/glfw"]
-	path = Env/glfw
-	url = https://github.com/glfw/glfw.git
-[submodule "Env/ktm"]
-	path = Env/ktm
-	url = https://github.com/YGXXD/ktm.git
-[submodule "Env/assimp"]
-	path = Env/assimp
-	url = https://github.com/assimp/assimp.git
 [submodule "Env/CabbageDisplay"]
 	path = Env/CabbageDisplay
 	url = https://github.com/CoronaEngine/CabbageDisplay.git
+	ignore = all
+[submodule "Env/entt"]
+	path = Env/entt
+	url = https://github.com/skypjack/entt.git
+	ignore = all
+[submodule "Env/concurrencpp"]
+	path = Env/concurrencpp
+	url = https://github.com/David-Haim/concurrencpp.git
+	ignore = all
+[submodule "Env/glfw"]
+	path = Env/glfw
+	url = https://github.com/glfw/glfw.git
+	ignore = all
+[submodule "Env/ktm"]
+	path = Env/ktm
+	url = https://github.com/YGXXD/ktm.git
+	ignore = all
+[submodule "Env/assimp"]
+	path = Env/assimp
+	url = https://github.com/assimp/assimp.git
+	ignore = all
 [submodule "Env/stb"]
 	path = Env/stb
 	url = https://github.com/nothings/stb.git
+	ignore = all
