@@ -21,6 +21,7 @@ add_subdirectory(Src)
 add_subdirectory(Env/assimp EXCLUDE_FROM_ALL)
 add_subdirectory(Env/CabbageDisplay EXCLUDE_FROM_ALL)
 add_subdirectory(Env/entt EXCLUDE_FROM_ALL)
+add_subdirectory(Env/concurrencpp EXCLUDE_FROM_ALL)
 
 if(CABBAGE_FRAMEWORK_BUILD_EXAMPLES)
     add_subdirectory(Env/glfw EXCLUDE_FROM_ALL)
