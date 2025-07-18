@@ -1,0 +1,28 @@
+
+cmake_minimum_required(VERSION 4.0)
+set_property(GLOBAL PROPERTY USE_FOLDERS ON)
+
+project(
+    CabbageFramework
+    VERSION 0.5.0
+    HOMEPAGE_URL "https://github.com/Cabbage-Engine/CabbageEngine"
+    LANGUAGES C CXX
+)
+
+if(CMAKE_SOURCE_DIR STREQUAL CMAKE_CURRENT_SOURCE_DIR)
+    option(CABBAGE_FRAMEWORK_BUILD_EXAMPLES "Build examples" ON)
+else()
+    option(CABBAGE_FRAMEWORK_BUILD_EXAMPLES "Build examples" OFF)
+endif()
+
+set(BUILD_SHARED_LIBS OFF)
+
+add_subdirectory(Src)
+add_subdirectory(Env/assimp EXCLUDE_FROM_ALL)
+add_subdirectory(Env/CabbageDisplay EXCLUDE_FROM_ALL)
+add_subdirectory(Env/entt EXCLUDE_FROM_ALL)
+
+if(CABBAGE_FRAMEWORK_BUILD_EXAMPLES)
+    add_subdirectory(Env/glfw EXCLUDE_FROM_ALL)
+    add_subdirectory(Examples)
+endif()
