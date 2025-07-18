@@ -1,17 +1,22 @@
 #pragma once
 
 #include <CabbageFramework.h>
-#include <PipelineManager/ComputePipeline.h>
-#include <PipelineManager/RasterizerPipeline.h>
-#include <cstdint>
+
+#include <entt/entt.hpp>
 #include <ktm/ktm.h>
-#include <vector>
+
+struct GPUUpdateComponent
+{
+};
 
 struct ActorPoseComponent
 {
     ktm::fvec3 transform = ktm::fvec3(0.0f, 0.0f, 0.0f);
     ktm::fvec3 rotate = ktm::fvec3(0.0f, 0.0f, 0.0f);
     ktm::fvec3 scale = ktm::fvec3(1.0f, 1.0f, 1.0f);
+
+    ktm::fvec3 aabbMinXYZ = ktm::fvec3(0.0f, 0.0f, 0.0f);
+    ktm::fvec3 aabbMaxXYZ = ktm::fvec3(0.0f, 0.0f, 0.0f);
 };
 
 struct BoneMatrixHostComponent
@@ -24,17 +29,11 @@ struct BoneMatrixDeviceComponent
     HardwareBuffer matrices;
 };
 
-struct BoneMatrixComponent
-{
-    uint64_t hostID;
-    uint64_t deviceID;
-};
-
 struct ImageHostComponent
 {
-    std::string path;              ///< 纹理文件路径
-    unsigned char *data;           ///< 纹理数据指针
-    int width, height, nrChannels; ///< 纹理宽、高、通道数
+    std::string path;            ///< 纹理文件路径
+    unsigned char *data;         ///< 纹理数据指针
+    int width, height, channels; ///< 纹理宽、高、通道数
 };
 
 struct ImageDeviceComponent
@@ -42,36 +41,14 @@ struct ImageDeviceComponent
     HardwareImage image;
 };
 
-struct ImageComponent
-{
-    uint64_t hostID;
-    uint64_t deviceID;
-};
-
-struct MaterialHostComponent
-{
-    uint64_t baseColorTextureID;
-
-    ktm::fvec3 roughness;
-    ktm::fvec3 metallic;
-    ktm::fvec3 specular;
-    ktm::fvec3 transmission;
-};
-
-struct MaterialDeviceComponent
-{
-    uint64_t baseColorTextureID;
-
-    ktm::fvec3 roughness;
-    ktm::fvec3 metallic;
-    ktm::fvec3 specular;
-    ktm::fvec3 transmission;
-};
-
 struct MaterialComponent
 {
-    uint64_t hostID;
-    uint64_t deviceID;
+    entt::entity baseColorTexture;
+
+    float roughness;
+    float metallic;
+    float specular;
+    float transmission;
 };
 
 struct MeshHostComponent
@@ -82,9 +59,10 @@ struct MeshHostComponent
     std::vector<float> texCoords;
     std::vector<uint32_t> boneIndices;
     std::vector<float> boneWeights;
-    uint64_t normalTextureID;
-    uint64_t opacityTextureID;
-    uint64_t materialID;
+
+    entt::entity normalTexture;
+    entt::entity opacityTexture;
+    entt::entity material;
 };
 
 struct MeshDeviceComponent
@@ -95,21 +73,28 @@ struct MeshDeviceComponent
     HardwareBuffer texCoordsBuffer;
     HardwareBuffer boneIndicesBuffer;
     HardwareBuffer boneWeightsBuffer;
-    uint64_t normalTextureID;
-    uint64_t opacityTextureID;
-    uint64_t materialID;
+
+    entt::entity normalTexture;
+    entt::entity opacityTexture;
+    entt::entity material;
 };
 
-struct MeshComponent
+struct ActorDeviceComponent
 {
-    uint64_t hostID;
-    uint64_t deviceID;
+    std::set<entt::entity> meshes;
 };
 
-struct GeometryComponent
+struct ActorHostComponent
 {
-    ktm::fvec3 minXYZ = ktm::fvec3(0.0f, 0.0f, 0.0f);
-    ktm::fvec3 maxXYZ = ktm::fvec3(0.0f, 0.0f, 0.0f);
-    std::vector<uint64_t> meshesID;
-    uint64_t boneMatrixID;
+    std::set<entt::entity> meshes;
+};
+
+struct SceneDeviceComponent
+{
+    std::set<entt::entity> actors;
+};
+
+struct SceneHostComponent
+{
+    std::set<entt::entity> actors;
 };
