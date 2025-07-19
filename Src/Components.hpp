@@ -1,11 +1,13 @@
 #pragma once
 
-#include <CabbageFramework.h>
-
 #include <entt/entt.hpp>
 #include <ktm/ktm.h>
 
-struct GPUUpdateComponent
+struct DemoReadComponent
+{
+};
+
+struct DemoWriteComponent
 {
 };
 
@@ -26,7 +28,7 @@ struct BoneMatrixHostComponent
 
 struct BoneMatrixDeviceComponent
 {
-    HardwareBuffer matrices;
+    // HardwareBuffer matrices;
 };
 
 struct ImageHostComponent
@@ -38,7 +40,7 @@ struct ImageHostComponent
 
 struct ImageDeviceComponent
 {
-    HardwareImage image;
+    // HardwareImage image;
 };
 
 struct MaterialComponent
@@ -67,12 +69,12 @@ struct MeshHostComponent
 
 struct MeshDeviceComponent
 {
-    HardwareBuffer indicesBuffer;
-    HardwareBuffer positionsBuffer;
-    HardwareBuffer normalsBuffer;
-    HardwareBuffer texCoordsBuffer;
-    HardwareBuffer boneIndicesBuffer;
-    HardwareBuffer boneWeightsBuffer;
+    // HardwareBuffer indicesBuffer;
+    // HardwareBuffer positionsBuffer;
+    // HardwareBuffer normalsBuffer;
+    // HardwareBuffer texCoordsBuffer;
+    // HardwareBuffer boneIndicesBuffer;
+    // HardwareBuffer boneWeightsBuffer;
 
     entt::entity normalTexture;
     entt::entity opacityTexture;

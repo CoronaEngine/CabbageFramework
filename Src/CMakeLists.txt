@@ -36,6 +36,7 @@ target_include_directories(CabbageFramework PUBLIC
     "${PROJECT_SOURCE_DIR}/Env/ktm"
     "${PROJECT_SOURCE_DIR}/Env/stb"
     "${PROJECT_SOURCE_DIR}/Env/assimp/include"
+    "${PROJECT_SOURCE_DIR}/Env/entt/single_include"
 )
 
 target_link_libraries(CabbageFramework PUBLIC
