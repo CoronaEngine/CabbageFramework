@@ -1,15 +1,10 @@
 #pragma once
 
 #include <algorithm>
-#include <ktm/ktm.h>
 #include <set>
 #include <string>
 #include <unordered_map>
 #include <vector>
-
-#include "Geometry/Model.h"
-
-#include "Animation/CabbageAnimator.h"
 
 #include <cstdint>
 #include <filesystem>
@@ -18,15 +13,11 @@
 #include <regex>
 #include <sstream>
 
-#include <CabbageFramework.h>
-#include <PipelineManager/ComputePipeline.h>
-#include <PipelineManager/RasterizerPipeline.h>
 
-
-struct CabbageEngine
+struct CabbageFramework
 {
-    CabbageEngine() = delete;
-    ~CabbageEngine() = delete;
+    CabbageFramework() = delete;
+    ~CabbageFramework() = delete;
 
     struct Actor;
     struct Scene;
