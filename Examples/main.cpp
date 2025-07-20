@@ -85,61 +85,7 @@ void ECSTest()
     entt::registry registry;
 
     /**************** Creat a actor  ****************/
-    auto normalTex = registry.create();
-    registry.emplace<ImageHostComponent>(normalTex, ImageHostComponent{
-                                                        // 写入属性
-                                                    });
-    registry.emplace<ImageDeviceComponent>(normalTex, ImageDeviceComponent{
-                                                          // 写入属性
-                                                      });
-    auto opacityTex = registry.create();
-    registry.emplace<ImageHostComponent>(opacityTex, ImageHostComponent{
-                                                         // 写入属性
-                                                     });
-    registry.emplace<ImageDeviceComponent>(opacityTex, ImageDeviceComponent{
-                                                           // 写入属性
-                                                       });
-    auto baseColorTex = registry.create();
-    registry.emplace<ImageHostComponent>(baseColorTex, ImageHostComponent{
-                                                           // 写入属性
-                                                       });
-    registry.emplace<ImageDeviceComponent>(baseColorTex, ImageDeviceComponent{
-                                                             // 写入属性
-                                                         });
 
-    auto material = registry.create();
-    registry.emplace<MaterialComponent>(material, MaterialComponent{
-                                                      // 写入属性
-                                                      .baseColorTexture = baseColorTex,
-                                                  });
-
-    auto mesh = registry.create();
-    registry.emplace<ActorPoseComponent>(mesh, ActorPoseComponent{
-                                                   // 写入属性
-                                               });
-    registry.emplace<BoneMatrixHostComponent>(mesh, BoneMatrixHostComponent{
-                                                        // 写入属性
-                                                    });
-    registry.emplace<BoneMatrixDeviceComponent>(mesh, BoneMatrixDeviceComponent{
-                                                          // 写入属性
-                                                      });
-    registry.emplace<MeshHostComponent>(mesh, MeshHostComponent{
-                                                  // 写入属性
-                                                  .normalTexture = normalTex,
-                                                  .opacityTexture = opacityTex,
-                                                  .material = material});
-    registry.emplace<MeshDeviceComponent>(mesh, MeshDeviceComponent{
-                                                    // 写入属性
-                                                    .normalTexture = normalTex,
-                                                    .opacityTexture = opacityTex,
-                                                    .material = material});
-    auto actor = registry.create();
-    registry.emplace<std::vector<entt::entity>>(actor, std::vector<entt::entity>{
-                                                           mesh});
-
-    auto scene = registry.create();
-    registry.emplace<std::vector<entt::entity>>(scene, std::vector<entt::entity>{
-                                                           actor});
 }
 
 int main()
