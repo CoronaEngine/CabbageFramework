@@ -40,7 +40,7 @@
             "binaryDir": "${sourceDir}/build/${presetName}",
             "installDir": "${sourceDir}/install/${presetName}",
             "cacheVariables": {
-                "CMAKE_CONFIGURATION_TYPES": "RelWithDebInfo;MinSizeRel"
+                "CMAKE_CONFIGURATION_TYPES": "Debug;RelWithDebInfo;Release;MinSizeRel"
             }
         },
         {
@@ -52,35 +52,58 @@
             "binaryDir": "${sourceDir}/build/${presetName}",
             "installDir": "${sourceDir}/install/${presetName}",
             "cacheVariables": {
-                "CMAKE_CONFIGURATION_TYPES": "RelWithDebInfo;MinSizeRel"
+                "CMAKE_CONFIGURATION_TYPES": "Debug;RelWithDebInfo;Release;MinSizeRel"
             }
         }
     ],
     "buildPresets": [
         {
-            "name": "ninja-rdi",
+            "name": "ninja-debug",
+            "displayName": "Build Ninja (Debug)",
+            "configurePreset": "ninja-mc",
+            "configuration": "Debug"
+        },
+        {
+            "name": "ninja-rel_with_debinfo",
             "displayName": "Build Ninja (RelWithDebInfo)",
             "configurePreset": "ninja-mc",
             "configuration": "RelWithDebInfo"
         },
         {
-            "name": "ninja-msr",
+            "name": "ninja-release",
+            "displayName": "Build Ninja (Release)",
+            "configurePreset": "ninja-mc",
+            "configuration": "Release"
+        },
+        {
+            "name": "ninja-min_size_rel",
             "displayName": "Build Ninja (MinSizeRel)",
             "configurePreset": "ninja-mc",
             "configuration": "MinSizeRel"
         },
         {
-            "name": "vs-rdi",
+            "name": "vs-debug",
+            "displayName": "Build VS (Debug)",
+            "configurePreset": "vs2022",
+            "configuration": "Debug"
+        },
+        {
+            "name": "vs-rel_with_debinfo",
             "displayName": "Build VS (RelWithDebInfo)",
             "configurePreset": "vs2022",
             "configuration": "RelWithDebInfo"
         },
         {
-            "name": "vs-msr",
+            "name": "vs-release",
+            "displayName": "Build VS (Release)",
+            "configurePreset": "vs2022",
+            "configuration": "Release"
+        },
+        {
+            "name": "vs-min_size_rel",
             "displayName": "Build VS (MinSizeRel)",
             "configurePreset": "vs2022",
             "configuration": "MinSizeRel"
         }
-    ],
-    "testPresets": []
+    ]
 }

@@ -15,6 +15,11 @@ else()
     option(CABBAGE_FRAMEWORK_BUILD_EXAMPLES "Build examples" OFF)
 endif()
 
+add_compile_definitions(
+    $<$<CXX_COMPILER_ID:MSVC>:_CRT_SECURE_NO_WARNINGS>
+    NOMINMAX
+)
+
 set(BUILD_SHARED_LIBS OFF)
 
 add_subdirectory(Src)

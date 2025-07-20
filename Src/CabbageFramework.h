@@ -1,156 +1,158 @@
-#pragma once
+// #pragma once
 
-#include <algorithm>
-#include <set>
-#include <string>
-#include <unordered_map>
-#include <vector>
+// #include <algorithm>
+// #include <set>
+// #include <string>
+// #include <unordered_map>
+// #include <vector>
 
-#include <cstdint>
-#include <filesystem>
-#include <fstream>
-#include <iostream>
-#include <regex>
-#include <sstream>
+// #include <cstdint>
+// #include <filesystem>
+// #include <fstream>
+// #include <iostream>
+// #include <regex>
+// #include <sstream>
 
-
-struct CabbageFramework
-{
-    CabbageFramework() = delete;
-    ~CabbageFramework() = delete;
-
-    struct Actor;
-    struct Scene;
-
-    struct Actor
-    {
-      public:
-        Actor(Scene &scene, std::string path = "");
-        ~Actor();
-
-        struct Pose
-        {
-            ktm::fvec3 transform = ktm::fvec3(0.0f, 0.0f, 0.0f); 
-            ktm::fvec3 rotate = ktm::fvec3(0.0f, 0.0f, 0.0f); 
-            ktm::fvec3 scale = ktm::fvec3(1.0f, 1.0f, 1.0f); 
-        };
+// #include <ktm/ktm.h>
 
 
-        struct MeshDeviceData
-        {
-            HardwareBuffer pointsBuffer;     
-            HardwareBuffer normalsBuffer;    
-            HardwareBuffer texCoordsBuffer;  
-            HardwareBuffer indexBuffer;    
-            HardwareBuffer boneIndexesBuffer; 
-            HardwareBuffer boneWeightsBuffer;
+// struct CabbageFramework
+// {
+//     CabbageFramework() = delete;
+//     ~CabbageFramework() = delete;
 
-            uint32_t materialIndex;
-            uint32_t textureIndex;
+//     struct Actor;
+//     struct Scene;
 
-            Mesh *meshData;
-        };
+//     struct Actor
+//     {
+//       public:
+//         Actor(Scene &scene, std::string path = "");
+//         ~Actor();
+
+//         struct Pose
+//         {
+//             ktm::fvec3 transform = ktm::fvec3(0.0f, 0.0f, 0.0f); 
+//             ktm::fvec3 rotate = ktm::fvec3(0.0f, 0.0f, 0.0f); 
+//             ktm::fvec3 scale = ktm::fvec3(1.0f, 1.0f, 1.0f); 
+//         };
 
 
-        void move(ktm::fvec3 pos);
-        void rotate(ktm::fvec3 euler);
-        void scale(ktm::fvec3 size);
+//         struct MeshDeviceData
+//         {
+//             HardwareBuffer pointsBuffer;     
+//             HardwareBuffer normalsBuffer;    
+//             HardwareBuffer texCoordsBuffer;  
+//             HardwareBuffer indexBuffer;    
+//             HardwareBuffer boneIndexesBuffer; 
+//             HardwareBuffer boneWeightsBuffer;
 
-        void setPose(const Pose &pose);
-        Pose getPose() const;
+//             uint32_t materialIndex;
+//             uint32_t textureIndex;
 
-        void setMeshShape(std::string path);
-        void setAnimation(std::string path);
-        void updateAnimation(float deltaTime);
+//             Mesh *meshData;
+//         };
 
-        void setActorMatrix(ktm::fmat4x4);
-        ktm::fmat4x4 getActorMatrix() const;
 
-        HardwareBuffer getBonesMatrixBuffer() const;
-        std::vector<MeshDeviceData> getDeviceMeshes() const;
+//         void move(ktm::fvec3 pos);
+//         void rotate(ktm::fvec3 euler);
+//         void scale(ktm::fvec3 size);
 
-        void detectCollision();
+//         void setPose(const Pose &pose);
+//         Pose getPose() const;
 
-        struct OpticsParams
-        {
-            bool enable;
-        };
-        void setOpticsParams(const OpticsParams &params);
+//         void setMeshShape(std::string path);
+//         void setAnimation(std::string path);
+//         void updateAnimation(float deltaTime);
 
-        struct AcousticsParams
-        {
-            bool enable;
-        };
-        void setAcousticsParams(const AcousticsParams &params);
+//         void setActorMatrix(ktm::fmat4x4);
+//         ktm::fmat4x4 getActorMatrix() const;
 
-        struct MechanicsParams
-        {
-            bool enable;
-        };
-        void setMechanicsParams(const MechanicsParams &params);
+//         HardwareBuffer getBonesMatrixBuffer() const;
+//         std::vector<MeshDeviceData> getDeviceMeshes() const;
 
-      private:
-        friend class PhysicalSimulator;
-        friend Scene;
+//         void detectCollision();
 
-        ktm::fmat4x4 actorMatrix = ktm::fmat4x4::from_diag(ktm::fvec4(0.0, 0.0, 0.0, 0.0));
-        std::vector<MeshDeviceData> deviceMeshes; 
+//         struct OpticsParams
+//         {
+//             bool enable;
+//         };
+//         void setOpticsParams(const OpticsParams &params);
 
-        HardwareBuffer bonesMatrixBuffer;
-        CabbageAnimator animator;     
-        Model *model;               
-        Scene &scene;                
-        Pose pose;           
-    };
+//         struct AcousticsParams
+//         {
+//             bool enable;
+//         };
+//         void setAcousticsParams(const AcousticsParams &params);
 
-    struct Scene
-    {
-      public:
-        Scene(void *surface = nullptr, bool lightField = false);
-        ~Scene();
+//         struct MechanicsParams
+//         {
+//             bool enable;
+//         };
+//         void setMechanicsParams(const MechanicsParams &params);
 
-        struct Camera
-        {
-            float fov = 45.0f;                                 
-            ktm::fvec3 pos = ktm::fvec3(1.0f, 1.0f, 1.0f);       
-            ktm::fvec3 forward = ktm::fvec3(-1.0f, -1.0f, -1.0f);
-            ktm::fvec3 worldUp = ktm::fvec3(0.0f, 1.0f, 0.0f); 
-        };
+//       private:
+//         friend class PhysicalSimulator;
+//         friend Scene;
 
-        void setCamera(const Camera &camera);
-        Camera& getCamera() const;
+//         ktm::fmat4x4 actorMatrix = ktm::fmat4x4::from_diag(ktm::fvec4(0.0, 0.0, 0.0, 0.0));
+//         std::vector<MeshDeviceData> deviceMeshes; 
 
-        void setSunDirection(ktm::fvec3 direction);
-        ktm::fvec3 getSunDirection() const;
+//         HardwareBuffer bonesMatrixBuffer;
+//         CabbageAnimator animator;     
+//         Model *model;               
+//         Scene &scene;                
+//         Pose pose;           
+//     };
 
-        void setDisplaySurface(void *surface);
-        void *getDisplaySurface() const;
+//     struct Scene
+//     {
+//       public:
+//         Scene(void *surface = nullptr, bool lightField = false);
+//         ~Scene();
 
-        Actor *detectActorByRay(ktm::fvec3 origin, ktm::fvec3 dir);
-        Actor *detectActorByScreen(ktm::uvec2 pixel);
+//         struct Camera
+//         {
+//             float fov = 45.0f;                                 
+//             ktm::fvec3 pos = ktm::fvec3(1.0f, 1.0f, 1.0f);       
+//             ktm::fvec3 forward = ktm::fvec3(-1.0f, -1.0f, -1.0f);
+//             ktm::fvec3 worldUp = ktm::fvec3(0.0f, 1.0f, 0.0f); 
+//         };
 
-        void setCollisionActors(const std::set<Actor *> &actors);
+//         void setCamera(const Camera &camera);
+//         Camera& getCamera() const;
 
-        void update(float deltaTime);
+//         void setSunDirection(ktm::fvec3 direction);
+//         ktm::fvec3 getSunDirection() const;
 
-        std::set<Actor *> getActors() const;
+//         void setDisplaySurface(void *surface);
+//         void *getDisplaySurface() const;
 
-      private:
-        std::set<Actor *> collisionActors;
-        Camera camera;    
-        void *displaySurface = nullptr;   
-        ktm::fvec3 sunDirection = ktm::fvec3(0.0, 1.0, 0.0); 
+//         Actor *detectActorByRay(ktm::fvec3 origin, ktm::fvec3 dir);
+//         Actor *detectActorByScreen(ktm::uvec2 pixel);
 
-        friend Actor; 
-        std::set<Actor *> actors; 
-    };
+//         void setCollisionActors(const std::set<Actor *> &actors);
 
-    static std::set<Scene *> getScenes();
+//         void update(float deltaTime);
 
-    static void update();
+//         std::set<Actor *> getActors() const;
 
-  private:
-    static std::set<Scene *> scenes; 
-    static std::unordered_map<std::string, HardwareImage> textureImageHash;
-    static std::unordered_map<std::string, Model> modelPathHash; 
-};
+//       private:
+//         std::set<Actor *> collisionActors;
+//         Camera camera;    
+//         void *displaySurface = nullptr;   
+//         ktm::fvec3 sunDirection = ktm::fvec3(0.0, 1.0, 0.0); 
+
+//         friend Actor; 
+//         std::set<Actor *> actors; 
+//     };
+
+//     static std::set<Scene *> getScenes();
+
+//     static void update();
+
+//   private:
+//     static std::set<Scene *> scenes; 
+//     static std::unordered_map<std::string, HardwareImage> textureImageHash;
+//     static std::unordered_map<std::string, Model> modelPathHash; 
+// };
