@@ -99,3 +99,8 @@ struct SunLightComponent
 {
     ktm::fvec3 direction;
 };
+
+struct ActorsComponent
+{
+    std::vector<entt::entity> actors;
+};
