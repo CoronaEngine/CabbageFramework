@@ -1,5 +1,5 @@
 #include "DemoSystem.h"
-#include "Components.hpp"
+#include "Components.h"
 
 #include <iostream>
 

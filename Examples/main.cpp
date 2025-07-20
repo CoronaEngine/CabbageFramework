@@ -2,7 +2,7 @@
 #include <iostream>
 #include <thread>
 
-#include "Components.hpp"
+#include <ECS/Components.h>
 
 #define GLFW_EXPOSE_NATIVE_WIN32
 #include <GLFW/glfw3.h>
@@ -84,36 +84,69 @@ void ECSTest()
 {
     entt::registry registry;
 
-    entt::entity actor1 = registry.create();
-    registry.emplace<ActorHostComponent>(actor1, ActorHostComponent{});
-    registry.emplace<ActorDeviceComponent>(actor1, ActorDeviceComponent{});
-    registry.emplace<ActorPoseComponent>(actor1, ActorPoseComponent{});
+    /**************** Creat a actor  ****************/
+    auto normalTex = registry.create();
+    registry.emplace<ImageHostComponent>(normalTex, ImageHostComponent{
+                                                        // 写入属性
+                                                    });
+    registry.emplace<ImageDeviceComponent>(normalTex, ImageDeviceComponent{
+                                                          // 写入属性
+                                                      });
+    auto opacityTex = registry.create();
+    registry.emplace<ImageHostComponent>(opacityTex, ImageHostComponent{
+                                                         // 写入属性
+                                                     });
+    registry.emplace<ImageDeviceComponent>(opacityTex, ImageDeviceComponent{
+                                                           // 写入属性
+                                                       });
+    auto baseColorTex = registry.create();
+    registry.emplace<ImageHostComponent>(baseColorTex, ImageHostComponent{
+                                                           // 写入属性
+                                                       });
+    registry.emplace<ImageDeviceComponent>(baseColorTex, ImageDeviceComponent{
+                                                             // 写入属性
+                                                         });
 
-    entt::entity actor2 = registry.create();
-    registry.emplace<ActorHostComponent>(actor2, ActorHostComponent{});
-    registry.emplace<ActorDeviceComponent>(actor2, ActorDeviceComponent{});
-    registry.emplace<ActorPoseComponent>(actor2, ActorPoseComponent{});
+    auto material = registry.create();
+    registry.emplace<MaterialComponent>(material, MaterialComponent{
+                                                      // 写入属性
+                                                      .baseColorTexture = baseColorTex,
+                                                  });
 
-    entt::entity scene1 = registry.create();
-    registry.emplace<SceneHostComponent>(scene1, SceneHostComponent{});
-    registry.emplace<SceneDeviceComponent>(scene1, SceneDeviceComponent{});
+    auto mesh = registry.create();
+    registry.emplace<ActorPoseComponent>(mesh, ActorPoseComponent{
+                                                   // 写入属性
+                                               });
+    registry.emplace<BoneMatrixHostComponent>(mesh, BoneMatrixHostComponent{
+                                                        // 写入属性
+                                                    });
+    registry.emplace<BoneMatrixDeviceComponent>(mesh, BoneMatrixDeviceComponent{
+                                                          // 写入属性
+                                                      });
+    registry.emplace<MeshHostComponent>(mesh, MeshHostComponent{
+                                                  // 写入属性
+                                                  .normalTexture = normalTex,
+                                                  .opacityTexture = opacityTex,
+                                                  .material = material});
+    registry.emplace<MeshDeviceComponent>(mesh, MeshDeviceComponent{
+                                                    // 写入属性
+                                                    .normalTexture = normalTex,
+                                                    .opacityTexture = opacityTex,
+                                                    .material = material});
+    auto actor = registry.create();
+    registry.emplace<std::vector<entt::entity>>(actor, std::vector<entt::entity>{
+                                                           mesh});
 
-    entt::entity scene2 = registry.create();
-    registry.emplace<SceneHostComponent>(scene2, SceneHostComponent{});
-    registry.emplace<SceneDeviceComponent>(scene2, SceneDeviceComponent{});
-
-    auto actorsView = registry.view<ActorHostComponent, ActorDeviceComponent, ActorPoseComponent>();
-    auto scenesView = registry.view<SceneHostComponent, SceneDeviceComponent>();
-
-    auto a1_actorPose = actorsView.get<ActorPoseComponent>(actor1);
-    auto a2_actorHost = actorsView.get<ActorPoseComponent>(actor2);
-    auto s1_scenehost = scenesView.get<SceneHostComponent>(scene1);
-    auto s2_scenedevice = scenesView.get<SceneDeviceComponent>(scene2);
+    auto scene = registry.create();
+    registry.emplace<std::vector<entt::entity>>(scene, std::vector<entt::entity>{
+                                                           actor});
 }
 
 int main()
 {
+#ifdef CABBAGE_ENGINE_DEBUG
     ECSTest();
+#endif
 
     std::filesystem::path resourcePath = std::filesystem::current_path().parent_path().parent_path().parent_path().parent_path() / "Examples//TestCase//AddModelTest//armadillo.obj ";
     std::filesystem::path resourcePath2 = std::filesystem::current_path().parent_path().parent_path().parent_path().parent_path() / "Examples//TestCase//vampire//dancing_vampire.dae ";

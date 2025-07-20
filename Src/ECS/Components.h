@@ -43,10 +43,9 @@ struct ImageDeviceComponent
     // HardwareImage image;
 };
 
-struct MaterialComponent
+struct MaterialParamsComponent
 {
-    entt::entity baseColorTexture;
-
+    ktm::fvec3 baseColor;
     float roughness;
     float metallic;
     float specular;
@@ -61,10 +60,6 @@ struct MeshHostComponent
     std::vector<float> texCoords;
     std::vector<uint32_t> boneIndices;
     std::vector<float> boneWeights;
-
-    entt::entity normalTexture;
-    entt::entity opacityTexture;
-    entt::entity material;
 };
 
 struct MeshDeviceComponent
@@ -75,28 +70,32 @@ struct MeshDeviceComponent
     // HardwareBuffer texCoordsBuffer;
     // HardwareBuffer boneIndicesBuffer;
     // HardwareBuffer boneWeightsBuffer;
-
-    entt::entity normalTexture;
-    entt::entity opacityTexture;
-    entt::entity material;
 };
 
-struct ActorDeviceComponent
+struct BaseColorTextureComponent
 {
-    std::set<entt::entity> meshes;
+    entt::entity texture;
 };
 
-struct ActorHostComponent
+struct NormalTextureComponent
 {
-    std::set<entt::entity> meshes;
+    entt::entity texture;
 };
 
-struct SceneDeviceComponent
+struct OpacityTextureComponent
 {
-    std::set<entt::entity> actors;
+    entt::entity texture;
 };
 
-struct SceneHostComponent
+struct CameraComponent
 {
-    std::set<entt::entity> actors;
+    float fov = 45.0f;
+    ktm::fvec3 pos = ktm::fvec3(1.0f, 1.0f, 1.0f);
+    ktm::fvec3 forward = ktm::fvec3(-1.0f, -1.0f, -1.0f);
+    ktm::fvec3 worldUp = ktm::fvec3(0.0f, 1.0f, 0.0f);
+};
+
+struct SunLightComponent
+{
+    ktm::fvec3 direction;
 };
