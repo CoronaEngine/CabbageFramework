@@ -1,4 +1,4 @@
- #pragma once
+﻿ #pragma once
 
  #include <algorithm>
  #include <set>
@@ -34,8 +34,8 @@
          void rotate(float euler[3]);
          void scale(float size[3]);
 
-         void setWorldMatrix(const ktm::fmat4x4 &pose);
-         ktm::fmat4x4 getWorldMatrix() const;
+         void setWorldMatrix(const float pose[16]);
+         float getWorldMatrix() const;
 
          void setMeshShape(std::string path);
          void setSkeletalAnimation(std::string path);
@@ -60,9 +60,8 @@
          };
          void setMechanicsParams(const MechanicsParams &params);
 
-       private:
          friend Scene;
-         uint64_t actorID;
+         const uint64_t actorID;
      };
 
      struct Scene
@@ -71,14 +70,13 @@
          Scene(void *surface = nullptr, bool lightField = false);
          ~Scene();
 
-         void setCamera(const ktm::fvec3 &pos, const ktm::fvec3 &forward, const ktm::fvec3 &worldUp, const float& fov);
-         void setSunDirection(ktm::fvec3 direction);
+         void setCamera(float camera[4]);
+         void setSunDirection(float direction);
          void setDisplaySurface(void *surface);
 
-         Actor& detectActorByRay(ktm::fvec3 origin, ktm::fvec3 dir);
+         Actor &detectActorByRay(float origin[3], float dir[3]);
 
-       private:
          friend Actor; 
-         uint64_t sceneID;
+         const uint64_t sceneID;
      };
  };
