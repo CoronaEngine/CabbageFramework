@@ -1,19 +1,7 @@
 ﻿#pragma once
 
-#include <algorithm>
-#include <set>
 #include <string>
-#include <unordered_map>
-#include <vector>
-
 #include <cstdint>
-#include <filesystem>
-#include <fstream>
-#include <iostream>
-#include <regex>
-#include <sstream>
-
-#include <ktm/ktm.h>
 
 struct CabbageFramework
 {
