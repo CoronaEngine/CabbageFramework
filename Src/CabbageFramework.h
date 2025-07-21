@@ -30,9 +30,9 @@
          Actor(Scene &scene, std::string path = "");
          ~Actor();
 
-         void move(ktm::fvec3 pos);
-         void rotate(ktm::fvec3 euler);
-         void scale(ktm::fvec3 size);
+         void move(float pos[3]);
+         void rotate(float euler[3]);
+         void scale(float size[3]);
 
          void setWorldMatrix(const ktm::fmat4x4 &pose);
          ktm::fmat4x4 getWorldMatrix() const;
