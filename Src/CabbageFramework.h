@@ -1,8 +1,8 @@
 ﻿#pragma once
 
-#include <string>
-#include <cstdint>
 #include <array>
+#include <string>
+
 
 struct CabbageFramework
 {
