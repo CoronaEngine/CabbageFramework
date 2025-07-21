@@ -3,7 +3,6 @@
 #include <array>
 #include <string>
 
-
 struct CabbageFramework
 {
     CabbageFramework() = delete;
@@ -27,7 +26,7 @@ struct CabbageFramework
         void setMeshShape(const std::string &path);
         void setSkeletalAnimation(const std::string &path);
 
-        bool detectCollision(const Actor &other);
+        uint64_t detectCollision(const Actor &other);
 
         struct OpticsParams
         {
@@ -59,7 +58,7 @@ struct CabbageFramework
         void setSunDirection(const std::array<float, 3> &direction);
         void setDisplaySurface(void *surface);
 
-        Actor &detectActorByRay(const std::array<float, 3> &origin, const std::array<float, 3> &dir);
+        Actor *detectActorByRay(const std::array<float, 3> &origin, const std::array<float, 3> &dir);
 
         const uint64_t sceneID;
     };

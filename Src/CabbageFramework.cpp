@@ -50,10 +50,10 @@ void CabbageFramework::Actor::setSkeletalAnimation(const std::string &path)
     // 设置骨骼动画
 }
 
-bool CabbageFramework::Actor::detectCollision(const Actor &other)
+uint64_t CabbageFramework::Actor::detectCollision(const Actor &other)
 {
     // 碰撞检测实现
-    return false;
+    return std::numeric_limits<uint64_t>::max();
 }
 
 void CabbageFramework::Actor::setOpticsParams(const OpticsParams &params)
@@ -97,8 +97,7 @@ void CabbageFramework::Scene::setDisplaySurface(void *surface)
     // 设置显示表面
 }
 
-CabbageFramework::Actor &CabbageFramework::Scene::detectActorByRay(const std::array<float, 3> &origin, const std::array<float, 3> &dir)
+CabbageFramework::Actor *CabbageFramework::Scene::detectActorByRay(const std::array<float, 3> &origin, const std::array<float, 3> &dir)
 {
-    static Actor actor(*this, "path");
-    return actor;
+    return nullptr;
 }
