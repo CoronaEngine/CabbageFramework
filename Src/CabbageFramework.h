@@ -47,7 +47,6 @@ struct CabbageFramework
         };
         void setMechanicsParams(const MechanicsParams &params);
 
-        friend Scene;
         const uint64_t actorID;
     };
 
@@ -62,7 +61,6 @@ struct CabbageFramework
 
         Actor &detectActorByRay(const std::array<float, 3> &origin, const std::array<float, 3> &dir);
 
-        friend Actor;
         const uint64_t sceneID;
     };
 };
