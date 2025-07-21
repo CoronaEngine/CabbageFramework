@@ -1,0 +1,6 @@
+{
+    "clangd.arguments": [
+        "--completion-style=detailed",
+        "--header-insertion=never"
+    ]
+}
