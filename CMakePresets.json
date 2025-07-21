@@ -37,8 +37,8 @@
             "inherits": "win-base",
             "displayName": "Ninja Multi-Config",
             "generator": "Ninja Multi-Config",
-            "binaryDir": "${sourceDir}/build/${presetName}",
-            "installDir": "${sourceDir}/install/${presetName}",
+            "binaryDir": "${sourceDir}/build",
+            "installDir": "${sourceDir}/install",
             "cacheVariables": {
                 "CMAKE_CONFIGURATION_TYPES": "Debug;RelWithDebInfo;Release;MinSizeRel"
             }
@@ -49,8 +49,8 @@
             "displayName": "Visual Studio 2022",
             "generator": "Visual Studio 17 2022",
             "architecture": "x64",
-            "binaryDir": "${sourceDir}/build/${presetName}",
-            "installDir": "${sourceDir}/install/${presetName}",
+            "binaryDir": "${sourceDir}/build",
+            "installDir": "${sourceDir}/install",
             "cacheVariables": {
                 "CMAKE_CONFIGURATION_TYPES": "Debug;RelWithDebInfo;Release;MinSizeRel"
             }
