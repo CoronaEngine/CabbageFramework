@@ -1,15 +1,9 @@
 #pragma once
 
+#include <CabbageDisplayer.h>
 #include <entt/entt.hpp>
 #include <ktm/ktm.h>
 
-struct DemoReadComponent
-{
-};
-
-struct DemoWriteComponent
-{
-};
 
 struct ActorPoseComponent
 {
@@ -28,7 +22,7 @@ struct BoneMatrixHostComponent
 
 struct BoneMatrixDeviceComponent
 {
-    // HardwareBuffer matrices;
+    HardwareBuffer matrices;
 };
 
 struct ImageHostComponent
@@ -40,7 +34,7 @@ struct ImageHostComponent
 
 struct ImageDeviceComponent
 {
-    // HardwareImage image;
+    HardwareImage image;
 };
 
 struct MaterialParamsComponent
@@ -62,14 +56,19 @@ struct MeshHostComponent
     std::vector<float> boneWeights;
 };
 
+struct MaterialComponent
+{
+    entt::entity material;
+};
+
 struct MeshDeviceComponent
 {
-    // HardwareBuffer indicesBuffer;
-    // HardwareBuffer positionsBuffer;
-    // HardwareBuffer normalsBuffer;
-    // HardwareBuffer texCoordsBuffer;
-    // HardwareBuffer boneIndicesBuffer;
-    // HardwareBuffer boneWeightsBuffer;
+    HardwareBuffer indicesBuffer;
+    HardwareBuffer positionsBuffer;
+    HardwareBuffer normalsBuffer;
+    HardwareBuffer texCoordsBuffer;
+    HardwareBuffer boneIndicesBuffer;
+    HardwareBuffer boneWeightsBuffer;
 };
 
 struct BaseColorTextureComponent
@@ -85,6 +84,12 @@ struct NormalTextureComponent
 struct OpacityTextureComponent
 {
     entt::entity texture;
+};
+
+struct MeshesComponent
+{
+    std::vector<entt::entity> meshes;
+    std::string path;
 };
 
 struct CameraComponent
