@@ -2,6 +2,7 @@
 
 #include <string>
 #include <cstdint>
+#include <array>
 
 struct CabbageFramework
 {
@@ -13,18 +14,18 @@ struct CabbageFramework
 
     struct Actor
     {
-        Actor(Scene &scene, std::string path = "");
+        Actor(const Scene &scene, const std::string &path = "");
         ~Actor();
 
-        void move(float pos[3]);
-        void rotate(float euler[3]);
-        void scale(float size[3]);
+        void move(const std::array<float, 3> &pos);
+        void rotate(const std::array<float, 3> &euler);
+        void scale(const std::array<float, 3> &size);
 
-        void setWorldMatrix(const float pose[4][4]);
-        float* getWorldMatrix() const;
+        void setWorldMatrix(const std::array<std::array<float, 4>, 4> &worldMartix);
+        std::array<std::array<float, 4>, 4> getWorldMatrix() const;
 
-        void setMeshShape(std::string path);
-        void setSkeletalAnimation(std::string path);
+        void setMeshShape(const std::string &path);
+        void setSkeletalAnimation(const std::string &path);
 
         bool detectCollision(const Actor &other);
 
@@ -55,11 +56,11 @@ struct CabbageFramework
         Scene(void *surface = nullptr, bool lightField = false);
         ~Scene();
 
-        void setCamera(const float pos[3], const float forward[3], const float worldup[3], const float fov);
-        void setSunDirection(float direction[3]);
+        void setCamera(const std::array<float, 3> &pos, const std::array<float, 3> &forward, const std::array<float, 3> &worldup, const float &fov);
+        void setSunDirection(const std::array<float, 3> &direction);
         void setDisplaySurface(void *surface);
 
-        Actor &detectActorByRay(float origin[3], float dir[3]);
+        Actor &detectActorByRay(const std::array<float, 3> &origin, const std::array<float, 3> &dir);
 
         friend Actor;
         const uint64_t sceneID;
