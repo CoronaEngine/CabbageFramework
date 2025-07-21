@@ -20,8 +20,8 @@ struct CabbageFramework
         void rotate(float euler[3]);
         void scale(float size[3]);
 
-        void setWorldMatrix(const float pose[16]);
-        float getWorldMatrix() const;
+        void setWorldMatrix(const float pose[4][4]);
+        float* getWorldMatrix() const;
 
         void setMeshShape(std::string path);
         void setSkeletalAnimation(std::string path);
@@ -55,8 +55,8 @@ struct CabbageFramework
         Scene(void *surface = nullptr, bool lightField = false);
         ~Scene();
 
-        void setCamera(float camera[4]);
-        void setSunDirection(float direction);
+        void setCamera(const float pos[3], const float forward[3], const float worldup[3], const float fov);
+        void setSunDirection(float direction[3]);
         void setDisplaySurface(void *surface);
 
         Actor &detectActorByRay(float origin[3], float dir[3]);
