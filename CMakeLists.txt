@@ -18,7 +18,8 @@ endif()
 add_compile_definitions(
     $<$<CXX_COMPILER_ID:MSVC>:_CRT_SECURE_NO_WARNINGS>
     NOMINMAX
-    ENTT_ID_TYPE=uint64_t   # 定义 ENTT 的 ID 类型为 uint64_t
+    ENTT_ID_TYPE=uint64_t # 定义 ENTT 的 ID 类型为 uint64_t
+    ENTT_USE_ATOMIC # 使用 ENTT 原子操作
 
     $<$<CONFIG:Debug>:CABBAGE_ENGINE_DEBUG>
     $<$<CONFIG:RelWithDebInfo>:CABBAGE_ENGINE_DEBUG>
