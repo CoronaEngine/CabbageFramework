@@ -1,6 +1,12 @@
 #include "ECSCore.h"
 #include "Components.h"
 
+ECSCore &ECSCore::get()
+{
+    static ECSCore instance;
+    return instance;
+}
+
 const entt::entity ECSCore::createTexture(const std::string &texturePath)
 {
     entt::entity texture = registry.create();

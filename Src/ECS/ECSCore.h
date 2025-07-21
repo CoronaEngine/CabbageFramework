@@ -5,8 +5,18 @@
 
 class ECSCore
 {
+  public:
+    static ECSCore &get(); // Singleton
+
   private:
-    entt::registry registry;
+    ECSCore() = default;
+    ECSCore(const ECSCore &other) = delete;
+    ECSCore &operator=(const ECSCore &other) = delete;
+    ECSCore(const ECSCore &&other) = delete;
+    ECSCore &operator=(const ECSCore &&other) = delete;
+
+  private:
+    entt::registry registry; // ECS Registry: Operate entities & component
 
   public:
     const entt::entity createTexture(const std::string &texturePath = "");
