@@ -10,7 +10,7 @@ ECSCore &ECSCore::get()
 const entt::entity ECSCore::createTexture(const std::string &texturePath)
 {
     entt::entity texture = registry.create();
-    registry.emplace<ImageDeviceComponent>(texture, HardwareImage{});
+    registry.emplace<ImageDeviceComponent>(texture, ImageDeviceComponent{});
     registry.emplace<ImageHostComponent>(texture, ImageHostComponent{.path = texturePath});
     return texture;
 }

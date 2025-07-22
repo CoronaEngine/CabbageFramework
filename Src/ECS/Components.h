@@ -4,7 +4,6 @@
 #include <entt/entt.hpp>
 #include <ktm/ktm.h>
 
-
 struct ActorPoseComponent
 {
     ktm::fvec3 transform = ktm::fvec3(0.0f, 0.0f, 0.0f);
@@ -108,4 +107,9 @@ struct SunLightComponent
 struct ActorsComponent
 {
     std::vector<entt::entity> actors;
+};
+
+struct ModelComponent
+{
+    entt::entity model;
 };
