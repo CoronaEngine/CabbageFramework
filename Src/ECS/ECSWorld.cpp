@@ -7,10 +7,15 @@
 #include <Multimedia/Rendering/RenderingSystem.h>
 #include <Resource/ResourceSystem.h>
 
+ECSWorld::ECSWorld(marl::Scheduler::Config &config) : scheduler(config)
+{
+}
 
 ECSWorld &ECSWorld::get()
 {
-    static ECSWorld instance;
+    static marl::Scheduler::Config config;
+    config.setWorkerThreadCount(std::thread::hardware_concurrency() - 7);
+    static ECSWorld instance(config);
     return instance;
 }
 

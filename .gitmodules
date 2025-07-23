@@ -22,3 +22,6 @@
 	path = Env/stb
 	url = https://github.com/nothings/stb.git
 	ignore = all
+[submodule "Env/marl"]
+	path = Env/marl
+	url = https://github.com/google/marl.git
