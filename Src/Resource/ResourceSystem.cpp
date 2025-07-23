@@ -1,9 +1,15 @@
 #include "ResourceSystem.h"
-#include "ECS/Components.h"
+#include "ECS/ECSWorld.h"
 #include <stb_image.h>
 
 #include <iostream>
 #include <sstream>
+
+ResourceSystem::~ResourceSystem()
+{
+    std::cout << "=== ResourceSystem exited ===\n";
+    mainloopThread->join();
+}
 
 ResourceSystem &ResourceSystem::get()
 {
@@ -33,8 +39,14 @@ const aiScene *ResourceSystem::loadAnimation(const std::string &path)
 
 void ResourceSystem::start()
 {
+    ECSWorld::get().getDispatcher().sink<EngineStopEvent>().connect<&ResourceSystem::stop>(this);
     std::cout << "ResourceSystem::start() called\n";
     mainloopThread = std::make_shared<std::thread>(&ResourceSystem::mainloop, this);
+}
+
+void ResourceSystem::stop()
+{
+    running = false;
 }
 
 void ResourceSystem::mainloop()
@@ -46,5 +58,5 @@ void ResourceSystem::mainloop()
         msg << std::this_thread::get_id() << " --> ResourceSystem tick " << i << "\n";
         std::cout << msg.str();
         std::this_thread::sleep_for(std::chrono::milliseconds(1000));
-    } while (++i);
+    } while (++i && running);
 }

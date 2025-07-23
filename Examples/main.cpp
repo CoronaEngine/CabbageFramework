@@ -10,6 +10,8 @@
 
 #include "CabbageFramework.h"
 
+std::atomic_bool running = true;
+
 int main()
 {
     ECSWorld::get().start(); // start the ECS world
@@ -49,13 +51,16 @@ int main()
                 glfwDestroyWindow(windows[i]);
             }
             glfwTerminate();
+            running = false;
         }
     }).detach();
 
-    while (true)
+    while (running)
     {
         // logic to update the scenes and actors
     }
+
+    ECSWorld::get().getDispatcher().trigger<EngineStopEvent>();
 
     return 0;
 }

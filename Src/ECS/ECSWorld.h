@@ -3,6 +3,10 @@
 #include <entt/entt.hpp>
 #include <ktm/ktm.h>
 
+struct EngineStopEvent
+{
+};
+
 class ECSWorld
 {
   public:
@@ -16,10 +20,11 @@ class ECSWorld
     ECSWorld &operator=(const ECSWorld &&other) = delete;
 
   private:
-    entt::registry registry;       // ECS Registry: Operate entities & component
-
+    entt::registry registry;     // ECS Registry: Operate entities & component
+    entt::dispatcher dispatcher; // ECS Dispatcher: Dispatch events
   public:
     entt::registry &getRegistry();
+    entt::dispatcher &getDispatcher();
 
     void start(); // Start ECS World
 };

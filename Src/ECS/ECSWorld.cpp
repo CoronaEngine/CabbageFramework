@@ -19,6 +19,11 @@ entt::registry &ECSWorld::getRegistry()
     return registry;
 }
 
+entt::dispatcher &ECSWorld::getDispatcher()
+{
+    return dispatcher;
+}
+
 void ECSWorld::start()
 {
     AnimationSystem::get().start();

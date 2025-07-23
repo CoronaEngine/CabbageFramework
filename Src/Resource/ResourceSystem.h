@@ -7,12 +7,19 @@
 
 class ResourceSystem
 {
+  private:
+    ResourceSystem() = default;
+
+  public:
+    ~ResourceSystem();
+
   public:
     static ResourceSystem &get();
 
   private:
     Assimp::Importer importer;
 
+    std::atomic_bool running{true};
     std::shared_ptr<std::thread> mainloopThread;
 
   public:
@@ -22,5 +29,6 @@ class ResourceSystem
     const aiScene *loadAnimation(const std::string &path);
 
     void start();
+    void stop();
     void mainloop();
 };

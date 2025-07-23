@@ -1,8 +1,14 @@
 #include "RenderingSystem.h"
+#include <ECS/ECSWorld.h>
 #include <iostream>
 #include <sstream>
 #include <thread>
 
+RenderingSystem::~RenderingSystem()
+{
+    std::cout << "=== RenderingSystem exited ===\n";
+    mainloopThread->join();
+}
 
 RenderingSystem &RenderingSystem::get()
 {
@@ -12,8 +18,14 @@ RenderingSystem &RenderingSystem::get()
 
 void RenderingSystem::start()
 {
+    ECSWorld::get().getDispatcher().sink<EngineStopEvent>().connect<&RenderingSystem::stop>(this);
     std::cout << "RenderingSystem::start() called\n";
     mainloopThread = std::make_shared<std::thread>(&RenderingSystem::mainloop, this);
+}
+
+void RenderingSystem::stop()
+{
+    running = false;
 }
 
 void RenderingSystem::mainloop()
@@ -25,5 +37,5 @@ void RenderingSystem::mainloop()
         msg << std::this_thread::get_id() << " --> RenderSystem tick " << i << "\n";
         std::cout << msg.str();
         std::this_thread::sleep_for(std::chrono::milliseconds(1000));
-    } while (++i);
+    } while (++i && running);
 }
