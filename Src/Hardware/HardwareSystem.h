@@ -3,16 +3,16 @@
 #include <memory>
 #include <thread>
 
-class GeometrySystem
+class HardwareSystem
 {
   private:
-    GeometrySystem() = default;
+    HardwareSystem() = default;
 
   public:
-    ~GeometrySystem();
+    ~HardwareSystem();
 
   public:
-    static GeometrySystem &get(); // Singleton
+    static HardwareSystem &get();
 
     void start();
     void stop();
