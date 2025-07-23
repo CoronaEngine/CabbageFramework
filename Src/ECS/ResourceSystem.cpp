@@ -7,22 +7,23 @@ ResourceSystem &ResourceSystem::get()
     return instance;
 }
 
-const entt::entity ResourceSystem::loadScene(entt::registry &registry, const std::string &path)
+const aiScene *ResourceSystem::loadScene(const std::string &path)
 {
-    return entt::null;
+    return nullptr;
 }
 
-const entt::entity ResourceSystem::loadModel(entt::registry &registry, const std::string &path)
+const aiScene *ResourceSystem::loadModel(const std::string &path)
 {
-    return entt::null;
+    return nullptr;
 }
 
-const entt::entity ResourceSystem::loadTexture(entt::registry &registry, const std::string &path)
+const stbi_uc *ResourceSystem::loadTexture(const std::string &path)
 {
-    return entt::null;
+    stbi_uc *ret = stbi_load(path.c_str(), nullptr, nullptr, nullptr, 0);
+    return nullptr;
 }
 
-const entt::entity ResourceSystem::loadAnimation(entt::registry &registry, const std::string &path)
+const aiScene *ResourceSystem::loadAnimation(const std::string &path)
 {
-    return entt::null;
+    return nullptr;
 }

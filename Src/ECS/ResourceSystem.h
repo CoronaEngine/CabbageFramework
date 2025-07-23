@@ -1,7 +1,8 @@
 #pragma once
 
-#include <entt/entt.hpp>
+#include <assimp/Importer.hpp>
 #include <concurrencpp/concurrencpp.h>
+#include <stb_image.h>
 
 class ResourceSystem
 {
@@ -11,9 +12,11 @@ class ResourceSystem
   private:
     ResourceSystem();
 
+    Assimp::Importer importer;
+
   public:
-    const entt::entity loadScene(entt::registry &registry, const std::string &path);
-    const entt::entity loadTexture(entt::registry &registry, const std::string &path);
-    const entt::entity loadModel(entt::registry &registry, const std::string &path);
-    const entt::entity loadAnimation(entt::registry &registry, const std::string &path);
+    const aiScene *loadScene(const std::string &path);
+    const stbi_uc *loadTexture(const std::string &path);
+    const aiScene *loadModel(const std::string &path);
+    const aiScene *loadAnimation(const std::string &path);
 };
