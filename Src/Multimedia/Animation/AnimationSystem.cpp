@@ -33,9 +33,12 @@ void AnimationSystem::mainloop()
     static int i = 1;
     do
     {
-        std::stringstream msg;
-        msg << std::this_thread::get_id() << " --> AnimationSystem tick " << i << "\n";
-        std::cout << msg.str();
+        if (i % 5 == 0)
+        {
+            ECSWorld::get().submitTask([this] {
+                testTask();
+            });
+        }
         std::this_thread::sleep_for(std::chrono::milliseconds(1000));
     } while (++i && running);
 }

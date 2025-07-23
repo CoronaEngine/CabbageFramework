@@ -54,9 +54,6 @@ void ResourceSystem::mainloop()
     static int i = 1;
     do
     {
-        std::stringstream msg;
-        msg << std::this_thread::get_id() << " --> ResourceSystem tick " << i << "\n";
-        std::cout << msg.str();
         std::this_thread::sleep_for(std::chrono::milliseconds(1000));
     } while (++i && running);
 }

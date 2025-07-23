@@ -9,6 +9,9 @@
 
 #include "CabbageFramework.h"
 
+#include <functional>
+
+
 int main()
 {
     std::vector<CabbageFramework::Scene> scenes;

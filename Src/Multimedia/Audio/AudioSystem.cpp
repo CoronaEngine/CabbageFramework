@@ -32,9 +32,21 @@ void AudioSystem::mainloop()
     static int i = 1;
     do
     {
-        std::stringstream msg;
-        msg << std::this_thread::get_id() << " --> AudioSystem tick " << i << "\n";
-        std::cout << msg.str();
+        ECSWorld::get().submitTask([this] {
+            testTask(i);
+        });
+        ECSWorld::get().submitTask([this] {
+            testTask2();
+        });
+        ECSWorld::get().submitTask([this] {
+            testTask(i * 2);
+        });
+        ECSWorld::get().submitTask([this] {
+            testTask(i * 3);
+        });
+        ECSWorld::get().submitTask([this] {
+            testTask(i * 4);
+        });
         std::this_thread::sleep_for(std::chrono::milliseconds(1000));
     } while (++i && running);
 }
