@@ -1,9 +1,15 @@
 #pragma once
 
+#include <concurrencpp/concurrencpp.h>
+
 class AnimationSystem
 {
-    public:
-        static AnimationSystem& get();
+  public:
+    static AnimationSystem &get();
 
-        void mainloop();
+    void start(std::shared_ptr<concurrencpp::thread_executor> executor);
+    void mainloop();
+
+  private:
+    std::shared_ptr<concurrencpp::thread_executor> mainloopThread;
 };

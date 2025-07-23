@@ -2,7 +2,7 @@
 #include <iostream>
 #include <thread>
 
-#include <ECS/Components.h>
+#include <ECS/ECSWorld.h>
 
 #define GLFW_EXPOSE_NATIVE_WIN32
 #include <GLFW/glfw3.h>
@@ -80,19 +80,9 @@
 //     updateCameraFront();
 // }
 
-void ECSTest()
-{
-    entt::registry registry;
-
-    /**************** Creat a actor  ****************/
-
-}
-
 int main()
 {
-#ifdef CABBAGE_ENGINE_DEBUG
-    ECSTest();
-#endif
+    ECSWorld::get().start();
 
     std::filesystem::path resourcePath = std::filesystem::current_path().parent_path().parent_path().parent_path().parent_path() / "Examples//TestCase//AddModelTest//armadillo.obj ";
     std::filesystem::path resourcePath2 = std::filesystem::current_path().parent_path().parent_path().parent_path().parent_path() / "Examples//TestCase//vampire//dancing_vampire.dae ";

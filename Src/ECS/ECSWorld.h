@@ -4,7 +4,6 @@
 #include <entt/entt.hpp>
 #include <ktm/ktm.h>
 
-
 class ECSWorld
 {
   public:
@@ -18,10 +17,11 @@ class ECSWorld
     ECSWorld &operator=(const ECSWorld &&other) = delete;
 
   private:
-    entt::registry registry; // ECS Registry: Operate entities & component
-    concurrencpp::runtime runtime; // Concurrencpp: Multi-threading
+    entt::registry registry;       // ECS Registry: Operate entities & component
+    concurrencpp::runtime runtime; // Concurrencpp Runtime: Manage threads
 
   public:
     entt::registry &getRegistry();
-    concurrencpp::runtime &getRuntime();
+
+    void start(); // Start ECS World
 };
