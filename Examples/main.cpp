@@ -10,11 +10,12 @@
 
 #include "CabbageFramework.h"
 
-std::atomic_bool running = true;
 
 int main()
 {
     ECSWorld::get().start(); // start the ECS world
+
+    std::atomic_bool running = true;
 
     std::vector<CabbageFramework::Scene> scenes;
 
