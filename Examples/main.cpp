@@ -1,8 +1,7 @@
-﻿#include <filesystem>
+﻿
+#include <filesystem>
 #include <iostream>
 #include <thread>
-
-#include <ECS/ECSWorld.h>
 
 #define GLFW_EXPOSE_NATIVE_WIN32
 #include <GLFW/glfw3.h>
@@ -13,7 +12,6 @@
 
 int main()
 {
-    ECSWorld::get();
     std::atomic_bool running = true;
 
     std::vector<CabbageFramework::Scene> scenes;

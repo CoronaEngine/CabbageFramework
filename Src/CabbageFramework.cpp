@@ -1,12 +1,11 @@
 #include "CabbageFramework.h"
-#include <entt/entt.hpp>
-
-entt::entity demoEntityID;
+#include "ECS/ECSWorld.h"
 
 // Actor实现
 CabbageFramework::Actor::Actor(const Scene &scene, const std::string &path)
-    : actorID(static_cast<uint64_t>(demoEntityID))
+    : actorID(static_cast<uint64_t>(0))
 {
+    ECSWorld::get();
 }
 
 CabbageFramework::Actor::~Actor()
@@ -73,7 +72,7 @@ void CabbageFramework::Actor::setMechanicsParams(const MechanicsParams &params)
 
 // Scene实现
 CabbageFramework::Scene::Scene(void *surface, bool lightField)
-    : sceneID(static_cast<uint64_t>(demoEntityID))
+    : sceneID(static_cast<uint64_t>(0))
 {
 }
 
