@@ -29,7 +29,7 @@ set(BUILD_SHARED_LIBS OFF)
 
 add_subdirectory(Src)
 add_subdirectory(Env/assimp EXCLUDE_FROM_ALL)
-add_subdirectory(Env/CabbageDisplay EXCLUDE_FROM_ALL)
+add_subdirectory(Env/CabbageDisplayer EXCLUDE_FROM_ALL)
 add_subdirectory(Env/entt EXCLUDE_FROM_ALL)
 add_subdirectory(Env/marl EXCLUDE_FROM_ALL)
 

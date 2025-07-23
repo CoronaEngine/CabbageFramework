@@ -13,8 +13,8 @@ set_target_properties(CabbageFramework PROPERTIES
 
 target_include_directories(CabbageFramework PUBLIC
     "${CMAKE_CURRENT_SOURCE_DIR}"
-    "${PROJECT_SOURCE_DIR}/Env/CabbageDisplay/Src"
-    "${PROJECT_SOURCE_DIR}/Env/CabbageDisplay/Env/Helicon/Src"
+    "${PROJECT_SOURCE_DIR}/Env/CabbageDisplayer/Src"
+    "${PROJECT_SOURCE_DIR}/Env/CabbageDisplayer/Env/Helicon/Src"
 
     "${PROJECT_SOURCE_DIR}/Env/ktm"
     "${PROJECT_SOURCE_DIR}/Env/stb"

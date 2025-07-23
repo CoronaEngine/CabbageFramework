@@ -1,7 +1,3 @@
-[submodule "Env/CabbageDisplay"]
-	path = Env/CabbageDisplay
-	url = https://github.com/CoronaEngine/CabbageDisplay.git
-	ignore = all
 [submodule "Env/entt"]
 	path = Env/entt
 	url = https://github.com/skypjack/entt.git
@@ -25,3 +21,7 @@
 [submodule "Env/marl"]
 	path = Env/marl
 	url = https://github.com/google/marl.git
+[submodule "Env/CabbageDisplayer"]
+	path = Env/CabbageDisplayer
+	url = https://github.com/CoronaEngine/CabbageDisplayer.git
+	ignore = all
