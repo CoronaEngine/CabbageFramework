@@ -1,7 +1,7 @@
 #include <algorithm>
 
-#include "ECSWorld.h"
 #include "Components.h"
+#include "ECSWorld.h"
 
 #include <Hardware/HardwareSystem.h>
 #include <Multimedia/Animation/AnimationSystem.h>
@@ -9,15 +9,28 @@
 #include <Multimedia/Rendering/RenderingSystem.h>
 #include <Resource/ResourceSystem.h>
 
-ECSWorld::ECSWorld(marl::Scheduler::Config &config) : scheduler(config)
+ECSWorld instance([] {
+    marl::Scheduler::Config config;
+    config.setWorkerThreadCount(std::max(4u, std::thread::hardware_concurrency() - 8));
+    return config;
+}());
+
+ECSWorld::ECSWorld(const marl::Scheduler::Config &config) : scheduler(config)
 {
+    AnimationSystem::get().start();
+    AudioSystem::get().start();
+    HardwareSystem::get().start();
+    RenderingSystem::get().start();
+    ResourceSystem::get().start();
+}
+
+ECSWorld::~ECSWorld()
+{
+    dispatcher.trigger<EngineStopEvent>();
 }
 
 ECSWorld &ECSWorld::get()
 {
-    static marl::Scheduler::Config config;
-    config.setWorkerThreadCount(std::max(std::thread::hardware_concurrency() - 8u, 4u));
-    static ECSWorld instance(config);
     return instance;
 }
 
@@ -29,13 +42,4 @@ entt::registry &ECSWorld::getRegistry()
 entt::dispatcher &ECSWorld::getDispatcher()
 {
     return dispatcher;
-}
-
-void ECSWorld::start()
-{
-    AnimationSystem::get().start();
-    AudioSystem::get().start();
-    HardwareSystem::get().start();
-    RenderingSystem::get().start();
-    ResourceSystem::get().start();
 }

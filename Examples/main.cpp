@@ -13,8 +13,7 @@
 
 int main()
 {
-    ECSWorld::get().start(); // start the ECS world
-
+    ECSWorld::get();
     std::atomic_bool running = true;
 
     std::vector<CabbageFramework::Scene> scenes;
@@ -60,8 +59,6 @@ int main()
     {
         // logic to update the scenes and actors
     }
-
-    ECSWorld::get().getDispatcher().trigger<EngineStopEvent>();
 
     return 0;
 }

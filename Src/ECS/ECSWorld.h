@@ -13,13 +13,11 @@ class ECSWorld
   public:
     static ECSWorld &get(); // Singleton
 
-  private:
-    ECSWorld(marl::Scheduler::Config &config);
-    ECSWorld(const ECSWorld &other) = delete;
-    ECSWorld &operator=(const ECSWorld &other) = delete;
-    ECSWorld(const ECSWorld &&other) = delete;
-    ECSWorld &operator=(const ECSWorld &&other) = delete;
+    ECSWorld(const marl::Scheduler::Config &config);
 
+    ~ECSWorld();
+
+  private:
   private:
     entt::registry registry;     // ECS Registry: Operate entities & component
     entt::dispatcher dispatcher; // ECS Dispatcher: Dispatch events
@@ -27,6 +25,4 @@ class ECSWorld
   public:
     entt::registry &getRegistry();
     entt::dispatcher &getDispatcher();
-
-    void start(); // Start ECS World
 };
