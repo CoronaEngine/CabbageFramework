@@ -9,53 +9,42 @@
 
 #include "CabbageFramework.h"
 
-
 int main()
 {
-    std::atomic_bool running = true;
-
     std::vector<CabbageFramework::Scene> scenes;
 
-    std::thread([&]() {
-        if (glfwInit() >= 0)
+    if (glfwInit() >= 0)
+    {
+        scenes.resize(4);
+        std::vector<GLFWwindow *> windows(scenes.size());
+
+        glfwWindowHint(GLFW_CLIENT_API, GLFW_NO_API);
+        for (size_t i = 0; i < scenes.size(); i++)
         {
-            scenes.resize(4);
-            std::vector<GLFWwindow *> windows(scenes.size());
+            windows[i] = glfwCreateWindow(800, 800, "Cabbage Engine", nullptr, nullptr);
+            scenes[i].setDisplaySurface(glfwGetWin32Window(windows[i]));
+        }
 
-            glfwWindowHint(GLFW_CLIENT_API, GLFW_NO_API);
-            for (size_t i = 0; i < scenes.size(); i++)
-            {
-                windows[i] = glfwCreateWindow(800, 800, "Cabbage Engine", nullptr, nullptr);
-                scenes[i].setDisplaySurface(glfwGetWin32Window(windows[i]));
-            }
-
-            auto shouldClosed = [&]() {
-                for (size_t i = 0; i < windows.size(); i++)
-                {
-                    if (glfwWindowShouldClose(windows[i]))
-                    {
-                        return true;
-                    }
-                }
-                return false;
-            };
-
-            while (!shouldClosed())
-            {
-                glfwPollEvents();
-            }
+        auto shouldClosed = [&]() {
             for (size_t i = 0; i < windows.size(); i++)
             {
-                glfwDestroyWindow(windows[i]);
+                if (glfwWindowShouldClose(windows[i]))
+                {
+                    return true;
+                }
             }
-            glfwTerminate();
-            running = false;
-        }
-    }).detach();
+            return false;
+        };
 
-    while (running)
-    {
-        // logic to update the scenes and actors
+        while (!shouldClosed())
+        {
+            glfwPollEvents();
+        }
+        for (size_t i = 0; i < windows.size(); i++)
+        {
+            glfwDestroyWindow(windows[i]);
+        }
+        glfwTerminate();
     }
 
     return 0;
