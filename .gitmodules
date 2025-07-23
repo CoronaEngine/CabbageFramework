@@ -21,6 +21,7 @@
 [submodule "Env/marl"]
 	path = Env/marl
 	url = https://github.com/google/marl.git
+	ignore = all
 [submodule "Env/CabbageDisplayer"]
 	path = Env/CabbageDisplayer
 	url = https://github.com/CoronaEngine/CabbageDisplayer.git
