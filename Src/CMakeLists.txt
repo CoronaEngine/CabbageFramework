@@ -27,5 +27,4 @@ target_link_libraries(CabbageFramework PUBLIC
     Helicon
     EnTT::EnTT
     CabbageDisplayer
-    concurrencpp::concurrencpp
 )

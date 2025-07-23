@@ -6,10 +6,6 @@
 	path = Env/entt
 	url = https://github.com/skypjack/entt.git
 	ignore = all
-[submodule "Env/concurrencpp"]
-	path = Env/concurrencpp
-	url = https://github.com/David-Haim/concurrencpp.git
-	ignore = all
 [submodule "Env/glfw"]
 	path = Env/glfw
 	url = https://github.com/glfw/glfw.git
