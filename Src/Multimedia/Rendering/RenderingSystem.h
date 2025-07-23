@@ -1,6 +1,7 @@
 #pragma once
 
-#include <concurrencpp/concurrencpp.h>
+#include <memory>
+#include <thread>
 
 class RenderingSystem
 {

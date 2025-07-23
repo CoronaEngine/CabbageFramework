@@ -1,7 +1,9 @@
 #pragma once
 
+#include <memory>
+#include <thread>
+
 #include <assimp/Importer.hpp>
-#include <concurrencpp/concurrencpp.h>
 
 class ResourceSystem
 {

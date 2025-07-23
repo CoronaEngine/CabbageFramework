@@ -1,6 +1,8 @@
 #include "RenderingSystem.h"
 #include <iostream>
+#include <sstream>
 #include <thread>
+
 
 RenderingSystem &RenderingSystem::get()
 {

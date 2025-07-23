@@ -1,7 +1,9 @@
 #include "ResourceSystem.h"
 #include "ECS/Components.h"
-#include <iostream>
 #include <stb_image.h>
+
+#include <iostream>
+#include <sstream>
 
 ResourceSystem &ResourceSystem::get()
 {
