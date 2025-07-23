@@ -1,3 +1,5 @@
+#include <algorithm>
+
 #include "ECSWorld.h"
 #include "Components.h"
 
@@ -14,7 +16,7 @@ ECSWorld::ECSWorld(marl::Scheduler::Config &config) : scheduler(config)
 ECSWorld &ECSWorld::get()
 {
     static marl::Scheduler::Config config;
-    config.setWorkerThreadCount(std::thread::hardware_concurrency() - 7);
+    config.setWorkerThreadCount(std::max(std::thread::hardware_concurrency() - 8u, 4u));
     static ECSWorld instance(config);
     return instance;
 }
