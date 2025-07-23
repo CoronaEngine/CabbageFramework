@@ -21,3 +21,4 @@
 [submodule "Env/CabbageDisplayer"]
 	path = Env/CabbageDisplayer
 	url = https://github.com/CoronaEngine/CabbageDisplayer.git
+	ignore = all
