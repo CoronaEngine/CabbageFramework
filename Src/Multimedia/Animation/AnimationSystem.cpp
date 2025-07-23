@@ -1,5 +1,6 @@
 #include "AnimationSystem.h"
 #include <iostream>
+#include <sstream>
 #include <thread>
 
 AnimationSystem &AnimationSystem::get()
@@ -8,12 +9,11 @@ AnimationSystem &AnimationSystem::get()
     return instance;
 }
 
-void AnimationSystem::start(std::shared_ptr<concurrencpp::thread_executor> executor)
+void AnimationSystem::start()
 {
     std::cout << "AnimationSystem::start() called\n";
-    executor->submit([this]() {
-        mainloop();
-    });
+    mainloopThread = std::make_shared<std::thread>(&AnimationSystem::mainloop, this);
+    // mainloopThread->detach();
 }
 
 void AnimationSystem::mainloop()

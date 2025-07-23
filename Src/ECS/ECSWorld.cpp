@@ -21,10 +21,10 @@ entt::registry &ECSWorld::getRegistry()
 
 void ECSWorld::start()
 {
-    AnimationSystem::get().start(runtime.thread_executor());
-    AudioSystem::get().start(runtime.thread_executor());
-    GeometrySystem::get().start(runtime.thread_executor());
-    PhysicsSystem::get().start(runtime.thread_executor());
-    RenderingSystem::get().start(runtime.thread_executor());
-    ResourceSystem::get().start(runtime.thread_executor());
+    AnimationSystem::get().start();
+    AudioSystem::get().start();
+    GeometrySystem::get().start();
+    PhysicsSystem::get().start();
+    RenderingSystem::get().start();
+    ResourceSystem::get().start();
 }

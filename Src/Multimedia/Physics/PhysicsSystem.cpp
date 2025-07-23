@@ -1,6 +1,6 @@
 #include "PhysicsSystem.h"
 #include <iostream>
-#include <thread>
+#include <sstream>
 
 PhysicsSystem &PhysicsSystem::get()
 {
@@ -8,12 +8,10 @@ PhysicsSystem &PhysicsSystem::get()
     return instance;
 }
 
-void PhysicsSystem::start(std::shared_ptr<concurrencpp::thread_executor> executor)
+void PhysicsSystem::start()
 {
     std::cout << "PhysicsSystem::start() called\n";
-    executor->submit([this]() {
-        mainloop();
-    });
+    mainloopThread = std::make_shared<std::thread>(&PhysicsSystem::mainloop, this);
 }
 
 void PhysicsSystem::mainloop()

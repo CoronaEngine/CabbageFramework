@@ -1,6 +1,6 @@
 #include "AudioSystem.h"
 #include <iostream>
-#include <thread>
+#include <sstream>
 
 AudioSystem &AudioSystem::get()
 {
@@ -8,12 +8,10 @@ AudioSystem &AudioSystem::get()
     return instance;
 }
 
-void AudioSystem::start(std::shared_ptr<concurrencpp::thread_executor> executor)
+void AudioSystem::start()
 {
     std::cout << "AudioSystem::start() called\n";
-    executor->submit([this]() {
-        mainloop();
-    });
+    mainloopThread = std::make_shared<std::thread>(&AudioSystem::mainloop, this);
 }
 
 void AudioSystem::mainloop()

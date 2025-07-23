@@ -29,12 +29,10 @@ const aiScene *ResourceSystem::loadAnimation(const std::string &path)
     return nullptr;
 }
 
-void ResourceSystem::start(std::shared_ptr<concurrencpp::thread_executor> executor)
+void ResourceSystem::start()
 {
     std::cout << "ResourceSystem::start() called\n";
-    executor->submit([this]() {
-        mainloop();
-    });
+    mainloopThread = std::make_shared<std::thread>(&ResourceSystem::mainloop, this);
 }
 
 void ResourceSystem::mainloop()

@@ -11,7 +11,7 @@ class ResourceSystem
   private:
     Assimp::Importer importer;
 
-    std::shared_ptr<concurrencpp::thread_executor> mainloopThread;
+    std::shared_ptr<std::thread> mainloopThread;
 
   public:
     const aiScene *loadScene(const std::string &path);
@@ -19,6 +19,6 @@ class ResourceSystem
     const aiScene *loadModel(const std::string &path);
     const aiScene *loadAnimation(const std::string &path);
 
-    void start(std::shared_ptr<concurrencpp::thread_executor> executor);
+    void start();
     void mainloop();
 };

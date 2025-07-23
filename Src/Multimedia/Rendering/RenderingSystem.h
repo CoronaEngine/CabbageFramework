@@ -7,9 +7,9 @@ class RenderingSystem
   public:
     static RenderingSystem &get();
 
-    void start(std::shared_ptr<concurrencpp::thread_executor> executor);
+    void start();
     void mainloop();
 
   private:
-    std::shared_ptr<concurrencpp::thread_executor> mainloopThread;
+    std::shared_ptr<std::thread> mainloopThread;
 };

@@ -8,12 +8,10 @@ RenderingSystem &RenderingSystem::get()
     return instance;
 }
 
-void RenderingSystem::start(std::shared_ptr<concurrencpp::thread_executor> executor)
+void RenderingSystem::start()
 {
     std::cout << "RenderingSystem::start() called\n";
-    executor->submit([this]() {
-        mainloop();
-    });
+    mainloopThread = std::make_shared<std::thread>(&RenderingSystem::mainloop, this);
 }
 
 void RenderingSystem::mainloop()

@@ -18,7 +18,6 @@ class ECSWorld
 
   private:
     entt::registry registry;       // ECS Registry: Operate entities & component
-    concurrencpp::runtime runtime; // Concurrencpp Runtime: Manage threads
 
   public:
     entt::registry &getRegistry();

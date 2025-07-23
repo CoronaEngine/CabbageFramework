@@ -1,6 +1,6 @@
 #include "GeometrySystem.h"
 #include <iostream>
-#include <thread>
+#include <sstream>
 
 GeometrySystem &GeometrySystem::get()
 {
@@ -8,12 +8,10 @@ GeometrySystem &GeometrySystem::get()
     return instance;
 }
 
-void GeometrySystem::start(std::shared_ptr<concurrencpp::thread_executor> executor)
+void GeometrySystem::start()
 {
     std::cout << "GeometrySystem::start() called\n";
-    executor->submit([this]() {
-        mainloop();
-    });
+    mainloopThread = std::make_shared<std::thread>(&GeometrySystem::mainloop, this);
 }
 
 void GeometrySystem::mainloop()

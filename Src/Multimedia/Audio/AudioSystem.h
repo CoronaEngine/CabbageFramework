@@ -1,15 +1,15 @@
 #pragma once
 
-#include <concurrencpp/concurrencpp.h>
+#include <thread>
 
 class AudioSystem
 {
   public:
     static AudioSystem &get(); // Singleton
 
-    void start(std::shared_ptr<concurrencpp::thread_executor> executor);
+    void start();
     void mainloop();
 
   private:
-    std::shared_ptr<concurrencpp::thread_executor> mainloopThread;
+    std::shared_ptr<std::thread> mainloopThread;
 };
