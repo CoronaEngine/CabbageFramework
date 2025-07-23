@@ -1,5 +1,6 @@
 #include "ResourceSystem.h"
-#include "Components.h"
+#include "ECS/Components.h"
+#include <iostream>
 
 ResourceSystem &ResourceSystem::get()
 {
@@ -26,4 +27,11 @@ const stbi_uc *ResourceSystem::loadTexture(const std::string &path)
 const aiScene *ResourceSystem::loadAnimation(const std::string &path)
 {
     return nullptr;
+}
+
+void ResourceSystem::mainloop()
+{
+    static int i = 1;
+    std::cout << "ResourceSystem::mainloop() tick " << i++ << std::endl;
+    std::this_thread::sleep_for(std::chrono::milliseconds(1000));
 }
