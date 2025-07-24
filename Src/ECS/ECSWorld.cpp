@@ -2,8 +2,8 @@
 
 #include "Components.h"
 #include "ECSWorld.h"
+#include "Events.hpp"
 
-#include <Hardware/HardwareSystem.h>
 #include <Multimedia/Animation/AnimationSystem.h>
 #include <Multimedia/Audio/AudioSystem.h>
 #include <Multimedia/Rendering/RenderingSystem.h>
@@ -17,16 +17,20 @@ ECSWorld instance([] {
 
 ECSWorld::ECSWorld(const marl::Scheduler::Config &config) : scheduler(config)
 {
-    AnimationSystem::get().start();
-    AudioSystem::get().start();
-    HardwareSystem::get().start();
-    RenderingSystem::get().start();
-    ResourceSystem::get().start();
+    // 立即触发事件 非线程安全
+    for (auto &[scene, dispatcher] : sceneDispatchers)
+    {
+        dispatcher.trigger<EngineStartEvent>();
+    }
 }
 
 ECSWorld::~ECSWorld()
 {
-    dispatcher.trigger<EngineStopEvent>();
+    // 立即触发事件 非线程安全
+    for (auto &[scene, dispatcher] : sceneDispatchers)
+    {
+        dispatcher.trigger<EngineStopEvent>();
+    }
 }
 
 ECSWorld &ECSWorld::get()
@@ -39,7 +43,13 @@ entt::registry &ECSWorld::getRegistry()
     return registry;
 }
 
-entt::dispatcher &ECSWorld::getDispatcher()
+entt::dispatcher &ECSWorld::getDispatcher(const entt::entity &scene)
 {
-    return dispatcher;
+#ifdef CABBAGE_ENGINE_DEBUG
+    if (!sceneDispatchers.contains(scene))
+    {
+        throw std::runtime_error("Scene does not create the dispatcher: Scene ID = " + std::to_string(static_cast<uint64_t>(scene)));
+    }
+#endif
+    return sceneDispatchers[scene];
 }

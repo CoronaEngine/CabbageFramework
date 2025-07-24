@@ -5,10 +5,6 @@
 #include <marl/defer.h>
 #include <marl/scheduler.h>
 
-struct EngineStopEvent
-{
-};
-
 class ECSWorld
 {
   public:
@@ -19,13 +15,14 @@ class ECSWorld
     ~ECSWorld();
 
   private:
+    std::unordered_map<entt::entity, entt::dispatcher> sceneDispatchers; // SceneEntity -> Dispatcher
+
   private:
-    entt::registry registry;     // ECS Registry: Operate entities & component
-    entt::dispatcher dispatcher; // ECS Dispatcher: Dispatch events
-    marl::Scheduler scheduler;   // Scheduler: Run ECS Systems Tasks
+    entt::registry registry;   // ECS Registry: Operate entities & component
+    marl::Scheduler scheduler; // Scheduler: Run ECS Systems Tasks
   public:
     entt::registry &getRegistry();
-    entt::dispatcher &getDispatcher();
+    entt::dispatcher &getDispatcher(const entt::entity &scene); // 获取对应场景的事件分发器
 
     template <typename Func>
     void submitTask(Func &&func);
