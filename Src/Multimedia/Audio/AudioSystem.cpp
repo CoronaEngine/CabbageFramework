@@ -1,9 +1,14 @@
 #include "AudioSystem.h"
+#include <ECS/ECSWorld.h>
+#include <ECS/Events.hpp>
 
 AudioSystem::AudioSystem(const entt::entity &ownerScene)
     : ISystem(ownerScene)
 {
     // 初始化音频系统
+    ECSWorld::get().getDispatcher(ownerScene).sink<SceneCreateEvent>().connect<&ISystem::onStart>(this);
+    ECSWorld::get().getDispatcher(ownerScene).sink<SceneDestroyEvent>().connect<&ISystem::onQuit>(this);
+    std::printf("Scene %-5lld %-16s %-10s\n", static_cast<uint64_t>(ownerScene), getName(), "created");
 }
 
 void AudioSystem::registerEvents(entt::dispatcher &dispatcher)
@@ -13,11 +18,13 @@ void AudioSystem::registerEvents(entt::dispatcher &dispatcher)
 
 void AudioSystem::onStart()
 {
+    running = true;
+    std::printf("Scene %-5lld %-16s %-10s\n", static_cast<uint64_t>(ownerScene), getName(), "started");
     mainloopThread = std::make_shared<std::thread>([this]() {
-        static int i = 0;
+        int i = 0;
         do
         {
-            std::printf("%s system tick %d \n", getName(), i++);
+            std::printf("Scene %-5lld %-16s %-10s %-5d\n", static_cast<uint64_t>(ownerScene), getName(), "ticked", i++);
             std::this_thread::sleep_for(std::chrono::milliseconds(1000));
         } while (running);
     });
@@ -25,11 +32,13 @@ void AudioSystem::onStart()
 
 void AudioSystem::onQuit()
 {
+    running = false;
     // 关闭音频系统
     if (mainloopThread && mainloopThread->joinable())
     {
         mainloopThread->join();
     }
+    std::printf("Scene %-5lld %-16s %-10s\n", static_cast<uint64_t>(ownerScene), getName(), "quited");
 }
 
 const char *AudioSystem::getName() const

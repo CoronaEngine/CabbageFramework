@@ -9,15 +9,7 @@ ECSWorld instance([] {
 
 ECSWorld::ECSWorld(const marl::Scheduler::Config &config) : scheduler(config)
 {
-    {
-        this->resourceSystem = std::make_shared<ResourceSystem>();
-        this->globalDispatcher
-            .sink<EngineStartEvent>()
-            .connect<&ResourceSystem::onStart>(this->resourceSystem.get());
-        this->globalDispatcher
-            .sink<EngineStopEvent>()
-            .connect<&ResourceSystem::onQuit>(this->resourceSystem.get());
-    }
+    this->resourceSystem = std::make_shared<ResourceSystem>();
 
     globalDispatcher.trigger<EngineStartEvent>();
 
@@ -34,12 +26,10 @@ ECSWorld::~ECSWorld()
     for (auto &[scene, dispatcher] : sceneDispatchers)
     {
         dispatcher.trigger<SceneDestroyEvent>();
-    }
-
-    for (auto &[scene, dispatcher] : sceneDispatchers)
-    {
         dispatcher.clear();
     }
+
+    globalDispatcher.trigger<EngineStopEvent>();
 
     sceneDispatchers.clear();
     sceneSystems.clear();
@@ -63,31 +53,20 @@ entt::dispatcher &ECSWorld::getDispatcher()
 
 entt::dispatcher &ECSWorld::getDispatcher(const entt::entity &scene)
 {
-#ifdef CABBAGE_ENGINE_DEBUG
     if (!sceneDispatchers.contains(scene))
     {
-        throw std::runtime_error("Scene does not create the dispatcher: Scene ID = " + std::to_string(static_cast<uint64_t>(scene)));
+        sceneDispatchers[scene] = std::move(entt::dispatcher{});
     }
-#endif
     return sceneDispatchers[scene];
 }
 
 entt::entity ECSWorld::createScene()
 {
     entt::entity scene = registry.create();
-    sceneDispatchers[scene] = std::move(entt::dispatcher{});
-
     sceneSystems[scene] = std::make_shared<ECSWorld::SceneSystem>();
     sceneSystems[scene]->animationSystem = std::make_shared<AnimationSystem>(scene);
     sceneSystems[scene]->audioSystem = std::make_shared<AudioSystem>(scene);
     sceneSystems[scene]->renderingSystem = std::make_shared<RenderingSystem>(scene);
-
-    sceneDispatchers[scene]
-        .sink<SceneCreateEvent>()
-        .connect<&AnimationSystem::onStart>(sceneSystems[scene]->animationSystem.get());
-    sceneDispatchers[scene]
-        .sink<SceneDestroyEvent>()
-        .connect<&AnimationSystem::onStart>(sceneSystems[scene]->animationSystem.get());
 
     sceneDispatchers[scene].trigger<SceneCreateEvent>();
     return scene;
