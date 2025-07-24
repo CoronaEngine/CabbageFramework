@@ -38,7 +38,7 @@ void ResourceSystem::onQuit()
     {
         mainloopThread->join();
     }
-    std::printf("Scene %-5s %-16s %-10s]\n", "null", getName(), "quited");
+    std::printf("Scene %-5s %-16s %-10s\n", "null", getName(), "quited");
 }
 
 const char *ResourceSystem::getName() const
