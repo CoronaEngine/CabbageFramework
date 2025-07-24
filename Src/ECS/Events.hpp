@@ -7,3 +7,11 @@ struct EngineStartEvent
 struct EngineStopEvent
 {
 };
+
+struct SceneCreateEvent
+{
+};
+
+struct SceneDestroyEvent
+{
+};

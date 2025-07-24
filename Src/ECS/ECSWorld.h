@@ -5,8 +5,20 @@
 #include <marl/defer.h>
 #include <marl/scheduler.h>
 
+#include <Multimedia/Animation/AnimationSystem.h>
+#include <Multimedia/Audio/AudioSystem.h>
+#include <Multimedia/Rendering/RenderingSystem.h>
+#include <Resource/ResourceSystem.h>
+
 class ECSWorld
 {
+    struct SceneSystem
+    {
+        std::shared_ptr<AnimationSystem> animationSystem;
+        std::shared_ptr<AudioSystem> audioSystem;
+        std::shared_ptr<RenderingSystem> renderingSystem;
+    };
+
   public:
     static ECSWorld &get(); // Singleton
 
@@ -15,34 +27,20 @@ class ECSWorld
     ~ECSWorld();
 
   private:
-    std::unordered_map<entt::entity, entt::dispatcher> sceneDispatchers; // SceneEntity -> Dispatcher
+    entt::dispatcher globalDispatcher;                                           // Global Event Dispatcher
+    std::shared_ptr<ResourceSystem> resourceSystem;                              // Resource System
+    std::unordered_map<entt::entity, entt::dispatcher> sceneDispatchers;         // SceneEntity -> Dispatcher
+    std::unordered_map<entt::entity, std::shared_ptr<SceneSystem>> sceneSystems; // SceneEntity -> Systems
 
   private:
     entt::registry registry;   // ECS Registry: Operate entities & component
     marl::Scheduler scheduler; // Scheduler: Run ECS Systems Tasks
+
   public:
+    marl::Scheduler &getScheduler();
     entt::registry &getRegistry();
+    entt::dispatcher &getDispatcher();
     entt::dispatcher &getDispatcher(const entt::entity &scene); // 获取对应场景的事件分发器
 
-    template <typename Func>
-    void submitTask(Func &&func);
-
-    template <typename Func, typename... Args>
-    void submitTask(Func &&func, Args &&...args);
+    entt::entity createScene();
 };
-
-template <typename Func>
-void ECSWorld::submitTask(Func &&func)
-{
-    scheduler.bind();
-    defer(scheduler.unbind());
-    marl::schedule(std::forward<Func>(func));
-}
-
-template <typename Func, typename... Args>
-void ECSWorld::submitTask(Func &&func, Args &&...args)
-{
-    scheduler.bind();
-    defer(scheduler.unbind());
-    marl::schedule(std::forward<Func>(func), std::forward<Args>(args)...);
-}
